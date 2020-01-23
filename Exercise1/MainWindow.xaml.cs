@@ -20,11 +20,19 @@ namespace Exercise1
     /// </summary>
     public partial class MainWindow: Window
     {
+        private ViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
             viewModel = new ViewModel();
             DataContext = viewModel;
         }
+
+        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Person selectedPerson = listBox.SelectedItem as Person;
+            viewModel.SelectedPerson = selectedPerson;
+        }
+
     }
 }

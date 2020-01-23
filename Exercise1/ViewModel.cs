@@ -17,5 +17,7 @@ namespace Exercise1
         }
 
         public ObservableCollection<Person> People { get; set; }
+
+        public Person SelectedPerson { get; set; }
     }
 }
