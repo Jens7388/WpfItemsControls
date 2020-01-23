@@ -23,6 +23,8 @@ namespace Exercise1
         public MainWindow()
         {
             InitializeComponent();
+            viewModel = new ViewModel();
+            DataContext = viewModel;
         }
     }
 }
