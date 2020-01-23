@@ -6,15 +6,15 @@ namespace Exercise1
 {
     public class Repository
     {
-        private List<Person> people;
+        public static List<Person> people;
 
         public Repository()
         {
             people = new List<Person>()
             {
-                new Person() {Firstname = "Richard", Lastname = "Head", Email = "HeadBoss@mail.co.ck", PhoneNumber = 42069666},
-                new Person() {Firstname = "Ivan", Lastname = "Jerkov", Email = "Jerkov@mail.ru", PhoneNumber = 12345678},
-                new Person() {Firstname = "Phuc", Lastname = "Yu", Email = "PhucYu@mail.as", PhoneNumber = 98765432}                
+                new Person("Richard", "Head","HeadBoss@mail.co.ck", 42069666),
+                new Person("Ivan", "Jerkov", "Jerkov@mail.ru", 12345678),
+                new Person("Phuc", "Yu", "PhucYu@mail.as", 98765432)                
             };
         }
 

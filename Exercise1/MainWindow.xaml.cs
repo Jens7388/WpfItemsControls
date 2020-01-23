@@ -34,5 +34,11 @@ namespace Exercise1
             viewModel.SelectedPerson = selectedPerson;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            int.TryParse(phoneNumberInput.Text, out int phoneNumber);
+            Person newPerson = new Person(firstNameInput.Text, lastNameInput.Text, emailInput.Text, phoneNumber);
+            Repository.people.Add(newPerson);
+        }
     }
 }
