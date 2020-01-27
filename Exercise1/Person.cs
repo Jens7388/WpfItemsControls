@@ -6,8 +6,6 @@ namespace Exercise1
 {
     public class Person
     {
-
-
         private string firstname;
         private string lastname;
         private string email;

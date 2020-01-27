@@ -24,7 +24,7 @@ namespace Exercise1
         {
             people.Add(person);
         }
-       
+
         public static bool GetPeopleFromFile(string path)
         {
             people = new List<Person>();
@@ -66,7 +66,8 @@ namespace Exercise1
             else
             {
                 MessageBox.Show("ADVARSEL! Kunne ikke forbinde til textfilen, tjek din sti!");
-                return false;
+                Environment.Exit(0);
+                return false;              
             }
         }
     }

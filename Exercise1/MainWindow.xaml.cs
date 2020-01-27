@@ -45,7 +45,7 @@ namespace Exercise1
             if(fileExists)
             {
                 int.TryParse(phoneNumberInput.Text, out int phoneNumber);
-                if(phoneNumber != 0)
+                if(phoneNumber != 0 && firstNameInput.Text != null && lastNameInput.Text != null && emailInput.Text != null)
                 {
                     Person newPerson = new Person(firstNameInput.Text, lastNameInput.Text, emailInput.Text, phoneNumber);
                     viewModel.People.Add(newPerson);
@@ -55,14 +55,20 @@ namespace Exercise1
                         return true;
                     }
                 }
-                else
+                else if(phoneNumber == 0)
                 {
                     MessageBox.Show("Ugyldigt telefonnummer! prøv igen");
                     return false;
                 }
+                else
+                {
+                    MessageBox.Show("Du mangler at udfylde et felt! Prøv igen");
+                    return false;
+                }
             }
             else
-            {              
+            {
+                MessageBox.Show("ADVARSEL! Kunne ikke forbinde til textfilen, tjek din sti!");
                 return false;
             }
         }
