@@ -21,6 +21,7 @@ namespace Exercise1
     /// </summary>
     public partial class MainWindow: Window
     {
+
         private ViewModel viewModel;
         public MainWindow()
         {
@@ -29,9 +30,11 @@ namespace Exercise1
             DataContext = viewModel;
         }
 
-        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
+        static string oldPersonData;
+        public void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Person selectedPerson = listBox.SelectedItem as Person;
+            oldPersonData = $"{selectedPerson.Firstname},{selectedPerson.Lastname},{selectedPerson.Email},{selectedPerson.PhoneNumber}";
             viewModel.SelectedPerson = selectedPerson;
         }
 
@@ -71,6 +74,74 @@ namespace Exercise1
                 MessageBox.Show("ADVARSEL! Kunne ikke forbinde til textfilen, tjek din sti!");
                 return false;
             }
+        }
+        public bool editPersonFromFile(string path)
+         {
+             bool fileExists = File.Exists(path);
+             if(fileExists)
+             {
+                 int.TryParse(selectedPhoneNumber.Text, out int phoneNumber);
+                 if(phoneNumber != 0 && selectedFirstName.Text != null && selectedLastName.Text != null && selectedEmail.Text != null)
+                 {
+                     Person newPerson = new Person(
+                         selectedFirstName.Text,
+                         selectedLastName.Text,
+                         selectedEmail.Text,
+                         phoneNumber);
+                     using(StreamReader reader = new StreamReader(path, Encoding.Default))
+                     {
+                         string document = "";
+                         while((document = reader.ReadLine()) != null)
+                         {
+                             if(document == oldPersonData)
+                             {
+                                reader.Close();
+                                
+                                using(StreamWriter sr = File.AppendText(path))
+                                 {
+                                    sr.WriteLine($"{newPerson.Firstname},{newPerson.Lastname},{newPerson.Email},{newPerson.PhoneNumber}");
+                                    viewModel.People.Remove(viewModel.SelectedPerson);
+                                    for(int i = 0; i < viewModel.People.Count; i++)
+                                    {
+                                        sr.WriteLine($"{viewModel.People[i].Firstname},{viewModel.People[i].Lastname},{viewModel.People[i].Email},{viewModel.People[i].PhoneNumber}");
+                                    }                           
+                                     return true;
+                                 }
+                             }
+                         }
+                     }
+                     viewModel.People.Add(newPerson);
+                 }
+                 else if(phoneNumber == 0)
+                 {
+                     MessageBox.Show("Ugyldigt telefonnummer! prøv igen");
+                     return false;
+                 }
+                 else
+                 {
+                     MessageBox.Show("Du mangler at udfylde et felt! Prøv igen");
+                     return false;
+                 }
+                 return true;
+             }
+             else
+             {
+                 MessageBox.Show("ADVARSEL! Kunne ikke forbinde til textfilen, tjek din sti!");
+                 return false;
+             }
+         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            selectedFirstName.IsReadOnly = false;
+            selectedLastName.IsReadOnly = false;
+            selectedEmail.IsReadOnly = false;
+            selectedPhoneNumber.IsReadOnly = false;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            editPersonFromFile("C:/Users/jens7388/Documents/people.txt");
         }
     }
 }
