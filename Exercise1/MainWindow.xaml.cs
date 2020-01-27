@@ -39,6 +39,7 @@ namespace Exercise1
             int.TryParse(phoneNumberInput.Text, out int phoneNumber);
             Person newPerson = new Person(firstNameInput.Text, lastNameInput.Text, emailInput.Text, phoneNumber);
             Repository.people.Add(newPerson);
+            viewModel.People.Add(newPerson);
         }
     }
 }
