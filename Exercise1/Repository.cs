@@ -24,23 +24,7 @@ namespace Exercise1
         {
             people.Add(person);
         }
-        public static bool WriteToFile(string path)
-        {
-            bool fileExists = File.Exists(path);
-            if(fileExists)
-            {
-                using(StreamWriter sr = File.AppendText(path))
-                {
-
-                    return true;
-                }
-            }
-            else
-            {
-                MessageBox.Show("ADVARSEL! Kunne ikke forbinde til textfilen, tjek din sti!");
-                return false;
-            }
-        }
+       
         public static bool GetPeopleFromFile(string path)
         {
             people = new List<Person>();

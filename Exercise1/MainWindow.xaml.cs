@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,9 +27,8 @@ namespace Exercise1
             InitializeComponent();
             viewModel = new ViewModel();
             DataContext = viewModel;
-            Repository.WriteToFile("C:/Users/jens7388/Documents/people.txt");
         }
-       
+
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Person selectedPerson = listBox.SelectedItem as Person;
@@ -37,11 +37,34 @@ namespace Exercise1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            int.TryParse(phoneNumberInput.Text, out int phoneNumber);
-            Person newPerson = new Person(firstNameInput.Text, lastNameInput.Text, emailInput.Text, phoneNumber);
-            Repository.people.Add(newPerson);
-            viewModel.People.Add(newPerson);
+            WriteToFile("C:/Users/jens7388/Documents/people.txt");
+        }
+        public bool WriteToFile(string path)
+        {
+            bool fileExists = File.Exists(path);
+            if(fileExists)
+            {
+                int.TryParse(phoneNumberInput.Text, out int phoneNumber);
+                if(phoneNumber != 0)
+                {
+                    Person newPerson = new Person(firstNameInput.Text, lastNameInput.Text, emailInput.Text, phoneNumber);
+                    viewModel.People.Add(newPerson);
+                    using(StreamWriter sr = File.AppendText(path))
+                    {
+                        sr.WriteLine($"{newPerson.Firstname},{newPerson.Lastname},{newPerson.Email},{newPerson.PhoneNumber}");
+                        return true;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ugyldigt telefonnummer! prøv igen");
+                    return false;
+                }
+            }
+            else
+            {              
+                return false;
+            }
         }
     }
 }
