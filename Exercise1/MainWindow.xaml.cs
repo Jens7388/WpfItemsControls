@@ -43,7 +43,7 @@ namespace Exercise1
             viewModel.SelectedPerson = selectedPerson;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddPerson(object sender, RoutedEventArgs e)
         {
             WriteToFile("C:/Users/jens7388/Documents/people.txt");
         }
@@ -52,10 +52,10 @@ namespace Exercise1
             bool fileExists = File.Exists(path);
             if(fileExists)
             {
-                int.TryParse(phoneNumberInput.Text, out int phoneNumber);
-                if(phoneNumber != 0 && firstNameInput.Text != null && lastNameInput.Text != null && emailInput.Text != null)
+                int.TryParse(selectedPhoneNumber.Text, out int phoneNumber);
+                if(phoneNumber != 0 && selectedFirstName.Text != null && selectedLastName.Text != null && selectedEmail.Text != null)
                 {
-                    Person newPerson = new Person(firstNameInput.Text, lastNameInput.Text, emailInput.Text, phoneNumber);
+                    Person newPerson = new Person(selectedFirstName.Text, selectedLastName.Text, selectedEmail.Text, phoneNumber);
                     viewModel.People.Add(newPerson);
                     using(StreamWriter sr = File.AppendText(path))
                     {
@@ -137,7 +137,6 @@ namespace Exercise1
                                 File.WriteAllText(path, $"{newPerson.Firstname},{newPerson.Lastname},{newPerson.Email},{newPerson.PhoneNumber}\n");
                                 using(StreamWriter sr = File.AppendText(path))
                                 {
-                                    viewModel.SelectedPerson = newPerson;
                                     viewModel.People.Clear();
                                     viewModel.People.Add(newPerson);
                                     for(int i = 0; i < nonEditedPeople.Count; i++)
@@ -177,16 +176,18 @@ namespace Exercise1
                 return false;
             }
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void EnableEditing(object sender, RoutedEventArgs e)
         {
             selectedFirstName.IsReadOnly = false;
+            selectedFirstName.BorderThickness = new Thickness(1); 
             selectedLastName.IsReadOnly = false;
+            selectedLastName.BorderThickness = new Thickness(1);
             selectedEmail.IsReadOnly = false;
+            selectedEmail.BorderThickness = new Thickness(1);
             selectedPhoneNumber.IsReadOnly = false;
+            selectedPhoneNumber.BorderThickness = new Thickness(1);
         }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void SaveEdit(object sender, RoutedEventArgs e)
         {
             editPersonFromFile("C:/Users/jens7388/Documents/people.txt");
         }
