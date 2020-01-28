@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 
-namespace Exercise1
+namespace ListboxExercise
 {
     public class Repository
     {

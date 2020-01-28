@@ -1,7 +1,7 @@
-﻿<Application x:Class="ListboxExercise.App"
+﻿<Application x:Class="ListViewExercise.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ListboxExercise"
+             xmlns:local="clr-namespace:ListViewExercise"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
