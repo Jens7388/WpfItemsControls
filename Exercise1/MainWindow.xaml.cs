@@ -31,10 +31,15 @@ namespace Exercise1
         }
 
         static string oldPersonData;
+        static List<Person> nonEditedPeople;
+        string document;
         public void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Person selectedPerson = listBox.SelectedItem as Person;
-            oldPersonData = $"{selectedPerson.Firstname},{selectedPerson.Lastname},{selectedPerson.Email},{selectedPerson.PhoneNumber}";
+            if(selectedPerson != null)
+            {
+                oldPersonData = $"{selectedPerson.Firstname},{selectedPerson.Lastname},{selectedPerson.Email},{selectedPerson.PhoneNumber}";
+            }
             viewModel.SelectedPerson = selectedPerson;
         }
 
@@ -76,60 +81,102 @@ namespace Exercise1
             }
         }
         public bool editPersonFromFile(string path)
-         {
-             bool fileExists = File.Exists(path);
-             if(fileExists)
-             {
-                 int.TryParse(selectedPhoneNumber.Text, out int phoneNumber);
-                 if(phoneNumber != 0 && selectedFirstName.Text != null && selectedLastName.Text != null && selectedEmail.Text != null)
-                 {
-                     Person newPerson = new Person(
-                         selectedFirstName.Text,
-                         selectedLastName.Text,
-                         selectedEmail.Text,
-                         phoneNumber);
-                     using(StreamReader reader = new StreamReader(path, Encoding.Default))
-                     {
-                         string document = "";
-                         while((document = reader.ReadLine()) != null)
-                         {
-                             if(document == oldPersonData)
-                             {
+        {
+            bool fileExists = File.Exists(path);
+            if(fileExists)
+            {
+                int.TryParse(selectedPhoneNumber.Text, out int phoneNumber);
+                if(phoneNumber != 0 && selectedFirstName.Text != null && selectedLastName.Text != null && selectedEmail.Text != null)
+                {
+                    Person newPerson = new Person(
+                        selectedFirstName.Text,
+                        selectedLastName.Text,
+                        selectedEmail.Text,
+                        phoneNumber);
+                    using(StreamReader reader = new StreamReader(path, Encoding.Default))
+                    {
+                        nonEditedPeople = new List<Person>();
+                        document = "";
+                        string firstName = "";
+                        string lastName = "";
+                        string email = "";
+                        phoneNumber = 0;
+                        while((document = reader.ReadLine()) != null)
+                        {
+                            string[] personData = document.Split(',');
+
+                            for(int i = 0; i < personData.Length; i += 4)
+                            {
+                                firstName = personData[i];
+                            }
+                            for(int i = 1; i < personData.Length; i += 4)
+                            {
+                                lastName = personData[i];
+                            }
+                            for(int i = 2; i < personData.Length; i += 4)
+                            {
+                                email = personData[i];
+                            }
+                            for(int i = 3; i < personData.Length; i += 4)
+                            {
+                                int.TryParse(personData[i], out phoneNumber);
+                            }
+
+                            Person person = new Person(firstName, lastName, email, phoneNumber);
+                            nonEditedPeople.Add(person);
+                        }
+                    }
+                    using(StreamReader reader = new StreamReader(path, Encoding.Default))
+                    {
+                        document = "";
+                        while((document = reader.ReadLine()) != null)
+                        {
+                            if(document == oldPersonData)
+                            {
                                 reader.Close();
-                                
+                                File.WriteAllText(path, $"{newPerson.Firstname},{newPerson.Lastname},{newPerson.Email},{newPerson.PhoneNumber}\n");
                                 using(StreamWriter sr = File.AppendText(path))
-                                 {
-                                    sr.WriteLine($"{newPerson.Firstname},{newPerson.Lastname},{newPerson.Email},{newPerson.PhoneNumber}");
-                                    viewModel.People.Remove(viewModel.SelectedPerson);
-                                    for(int i = 0; i < viewModel.People.Count; i++)
+                                {
+                                    viewModel.SelectedPerson = newPerson;
+                                    viewModel.People.Clear();
+                                    viewModel.People.Add(newPerson);
+                                    for(int i = 0; i < nonEditedPeople.Count; i++)
                                     {
-                                        sr.WriteLine($"{viewModel.People[i].Firstname},{viewModel.People[i].Lastname},{viewModel.People[i].Email},{viewModel.People[i].PhoneNumber}");
-                                    }                           
-                                     return true;
-                                 }
-                             }
-                         }
-                     }
-                     viewModel.People.Add(newPerson);
-                 }
-                 else if(phoneNumber == 0)
-                 {
-                     MessageBox.Show("Ugyldigt telefonnummer! prøv igen");
-                     return false;
-                 }
-                 else
-                 {
-                     MessageBox.Show("Du mangler at udfylde et felt! Prøv igen");
-                     return false;
-                 }
-                 return true;
-             }
-             else
-             {
-                 MessageBox.Show("ADVARSEL! Kunne ikke forbinde til textfilen, tjek din sti!");
-                 return false;
-             }
-         }
+                                        if($"{nonEditedPeople[i].Firstname},{nonEditedPeople[i].Lastname},{nonEditedPeople[i].Email},{nonEditedPeople[i].PhoneNumber}" == oldPersonData)
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            sr.WriteLine($"{nonEditedPeople[i].Firstname},{nonEditedPeople[i].Lastname},{nonEditedPeople[i].Email},{nonEditedPeople[i].PhoneNumber}");
+                                            viewModel.People.Add(nonEditedPeople[i]);
+                                        }
+                                    }
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+
+                }
+                else if(phoneNumber == 0)
+                {
+                    MessageBox.Show("Ugyldigt telefonnummer! prøv igen");
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show("Du mangler at udfylde et felt! Prøv igen");
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("ADVARSEL! Kunne ikke forbinde til textfilen, tjek din sti!");
+                return false;
+            }
+        }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
