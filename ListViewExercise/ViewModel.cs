@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ListViewExercise
 {
-     public class ViewModel
+    public class ViewModel
     {
         private Repository repository;
 

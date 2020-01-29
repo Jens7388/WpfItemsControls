@@ -18,7 +18,6 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -28,14 +27,15 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-
         <ListView x:Name="listView_employees"
-                  Grid.Column="2"
                   Grid.Row="0"
+                  Grid.Column="1"                  
+                  BorderThickness="1"
                   Grid.ColumnSpan="3"
-                  Grid.RowSpan="7"
+                  Grid.RowSpan="3"
                   ItemsSource="{Binding Employees}"
-                  SelectedItem="{Binding SelectedEmployee}">
+                  SelectedItem="{Binding SelectedEmployee}"
+                  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Navn"
@@ -47,6 +47,81 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <GroupBox Grid.Column="4"
+                  BorderThickness="0"
+                  Header="Mere info om de ansatte:"
+                  FontSize="19"
+                  Grid.ColumnSpan="3"
+                  Grid.RowSpan="3">
+            <StackPanel>
 
+                <StackPanel Width="170"
+                            HorizontalAlignment="Right"
+                            Height="152">
+                    <TextBox x:Name="textBoxFirstName"
+                             BorderThickness="0"
+                             Text="{Binding SelectedEmployee.Firstname}"
+                             Margin="10,4"
+                             FontSize="12"
+                             Height="15"/>
+                    <TextBox x:Name="textBoxLastName"
+                             BorderThickness="0"
+                             Text="{Binding SelectedEmployee.Lastname}"
+                             Margin="10,4"
+                             FontSize="12"
+                             Height="15" />
+                    <TextBox x:Name="textBoxSalary"
+                             BorderThickness="0"
+                             Text="{Binding SelectedEmployee.Salary}"
+                             Margin="10,4"
+                             FontSize="12"
+                             Height="15"/>
+                    <DatePicker x:Name="datePickerHireDate"
+                                Margin="10,4"
+                                SelectedDate="{Binding SelectedEmployee.HireDate}"
+                                BorderThickness="0"
+                                FontSize="12"
+                                Height="22" />
+                    <TextBox x:Name="textBoxPosition"
+                             Margin="10,4"
+                             Text="{Binding SelectedEmployee.Position}"
+                             BorderThickness="0"
+                             FontSize="12"
+                             Height="15" />
+                </StackPanel>
+                <StackPanel Width="142"
+                            HorizontalAlignment="Left"
+                            Margin="0,-150">
+                    <TextBlock Text="Fornavn:"
+                               FontSize="12"
+                               Width="69"
+                               Margin="10,4"
+                               HorizontalAlignment="Left" />
+                    <TextBlock Text="Efternavn:"
+                               FontSize="12"
+                               Margin="10,4"
+                               Width="69"
+                               HorizontalAlignment="Left" />
+                    <TextBlock Text="Årsløn:"
+                               FontSize="12"
+                               Margin="10,4"
+                               Width="69"
+                               HorizontalAlignment="Left" />
+                    <TextBlock Text="Ansættelsesdato:"
+                               Margin="10,4"
+                               FontSize="12"
+                               Width="120"
+                               HorizontalAlignment="Left"
+                               />
+                    <TextBlock Text="Stilling:"
+                               Margin="10,4"
+                               FontSize="12"
+                               Width="120"
+                               HorizontalAlignment="Left" />
+
+                </StackPanel>
+
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </Window>

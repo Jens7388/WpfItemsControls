@@ -6,7 +6,6 @@ namespace ListViewExercise
 {
     public class Employee
     {
-
         public Employee(string firstname, string lastname, string position, int salary, DateTime hireDate)
         {
             Firstname = firstname;
@@ -15,7 +14,6 @@ namespace ListViewExercise
             Salary = salary;
             HireDate = hireDate;
         }
-
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Position { get; set; }
