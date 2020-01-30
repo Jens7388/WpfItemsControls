@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
-        Width="800">
+        Width="830">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -29,13 +29,12 @@
         </Grid.RowDefinitions>
         <ListView x:Name="listView_employees"
                   Grid.Row="0"
-                  Grid.Column="1"                  
+                  Grid.Column="1"
                   BorderThickness="1"
                   Grid.ColumnSpan="3"
                   Grid.RowSpan="3"
                   ItemsSource="{Binding Employees}"
-                  SelectedItem="{Binding SelectedEmployee}"
-                  >
+                  SelectedItem="{Binding SelectedEmployee}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Navn"
@@ -47,51 +46,80 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <GroupBox Grid.Column="4"
+        <GroupBox Grid.Column="3"
                   BorderThickness="0"
                   Header="Rediger/opret ny ansat:"
                   FontSize="19"
-                  Grid.ColumnSpan="3"
-                  Grid.RowSpan="3">
-            <StackPanel>
+                  Grid.ColumnSpan="4"
+                  Grid.RowSpan="4"
+                  Margin="114,0,0,31">
+            <StackPanel Margin="0,0,-2,0">
 
-                <StackPanel Width="170"
+                <StackPanel Width="219"
                             HorizontalAlignment="Right"
-                            Height="152">
+                            Height="158"
+                            RenderTransformOrigin="0.5,0.5">
+                    <StackPanel.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform />
+                            <SkewTransform AngleY="0.252" />
+                            <RotateTransform />
+                            <TranslateTransform Y="-0.529" />
+                        </TransformGroup>
+                    </StackPanel.RenderTransform>
                     <TextBox x:Name="textBoxFirstName"
                              BorderThickness="0"
                              Text="{Binding SelectedEmployee.Firstname}"
-                             Margin="10,4"
+                             Margin="10,3"
                              FontSize="12"
-                             Height="15"/>
+                             Height="17"
+                             IsReadOnly="True"/>
                     <TextBox x:Name="textBoxLastName"
                              BorderThickness="0"
                              Text="{Binding SelectedEmployee.Lastname}"
-                             Margin="10,4"
+                             Margin="10,3"
                              FontSize="12"
-                             Height="15" />
+                             Height="17"
+                             IsReadOnly="True"/>
                     <TextBox x:Name="textBoxSalary"
                              BorderThickness="0"
                              Text="{Binding SelectedEmployee.Salary}"
-                             Margin="10,4"
+                             Margin="10,3"
                              FontSize="12"
-                             Height="15"/>
+                             Height="17"
+                             IsReadOnly="True"/>
                     <DatePicker x:Name="datePickerHireDate"
-                                Margin="10,4"
+                                Margin="10,3"
                                 SelectedDate="{Binding SelectedEmployee.HireDate}"
                                 BorderThickness="0"
                                 FontSize="12"
-                                Height="22" />
+                                Height="22"
+                                IsEnabled="False"/>
                     <TextBox x:Name="textBoxPosition"
-                             Margin="10,4"
+                             Margin="10,4.5"
                              Text="{Binding SelectedEmployee.Position}"
                              BorderThickness="0"
                              FontSize="12"
-                             Height="15" />
+                             Height="17"
+                             IsReadOnly="True"/>
+                    <StackPanel Orientation="Horizontal"
+                                Width="211">
+                        <Button x:Name="buttonSaveAsNewEmployee"
+                                Content="Gem som ny ansat"
+                                FontSize="12"
+                                Height="31"
+                                Width="110"
+                                HorizontalAlignment="Left"
+                                Click="buttonSaveAsNewEmployee_Click" />
+                        <Button Content="Gem redigering"
+                                FontSize="12"
+                                Width="90" />
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Width="142"
+                <StackPanel Width="159"
                             HorizontalAlignment="Left"
-                            Margin="0,-150">
+                            Margin="0,-156"
+                            Height="317">
                     <TextBlock Text="Fornavn:"
                                FontSize="12"
                                Width="69"
@@ -117,6 +145,13 @@
                                FontSize="12"
                                Width="120"
                                HorizontalAlignment="Left" />
+                    <Button x:Name="buttonAllowEdit"
+                            Content="Åbn for redigering"
+                            FontSize="12"
+                            Height="31"
+                            Width="129"
+                            HorizontalAlignment="Left"
+                            Click="buttonAllowEdit_Click" />
                 </StackPanel>
             </StackPanel>
         </GroupBox>
