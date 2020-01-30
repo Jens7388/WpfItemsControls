@@ -49,7 +49,7 @@
         </ListView>
         <GroupBox Grid.Column="4"
                   BorderThickness="0"
-                  Header="Mere info om de ansatte:"
+                  Header="Rediger/opret ny ansat:"
                   FontSize="19"
                   Grid.ColumnSpan="3"
                   Grid.RowSpan="3">
@@ -111,16 +111,13 @@
                                Margin="10,4"
                                FontSize="12"
                                Width="120"
-                               HorizontalAlignment="Left"
-                               />
+                               HorizontalAlignment="Left" />
                     <TextBlock Text="Stilling:"
                                Margin="10,4"
                                FontSize="12"
                                Width="120"
                                HorizontalAlignment="Left" />
-
                 </StackPanel>
-
             </StackPanel>
         </GroupBox>
     </Grid>
