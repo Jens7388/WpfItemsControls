@@ -8,7 +8,7 @@ namespace ListViewExercise
 {
     public class Repository
     {
-        private string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "employes.txt");
+        private string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "employees.txt");
         public static List<Employee> employees;
 
         public Repository()

@@ -90,7 +90,6 @@ namespace ListViewExercise
             bool fileExists = File.Exists(path);
             if(fileExists)
             {
-
                 int.TryParse(textBoxSalary.Text, out int salary);
                 DateTime.TryParse(datePickerHireDate.Text, out DateTime hireDate);
                 if(salary != 0 && textBoxFirstName.Text != null && textBoxLastName.Text != null && textBoxPosition.Text != null && hireDate.Year != 0001)
@@ -167,7 +166,6 @@ namespace ListViewExercise
                             }
                         }
                     }
-
                 }
                 else if(salary == 0)
                 {
@@ -192,7 +190,6 @@ namespace ListViewExercise
                 return false;
             }
         }
-
         private void buttonAllowEdit_Click(object sender, RoutedEventArgs e)
         {
             textBoxFirstName.IsReadOnly = false;
@@ -206,12 +203,10 @@ namespace ListViewExercise
             textBoxSalary.IsReadOnly = false;
             textBoxSalary.BorderThickness = new Thickness(1);
         }
-
         private void buttonSaveAsNewEmployee_Click(object sender, RoutedEventArgs e)
         {
             WriteToFile(path);
         }
-
         private void buttonSaveEdit_Click(object sender, RoutedEventArgs e)
         {
             editEmployeeFromFile(path);
