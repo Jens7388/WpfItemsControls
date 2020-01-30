@@ -8,17 +8,18 @@ namespace ListViewExercise
 {
     public class Repository
     {
+        private string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "employes.txt");
         public static List<Employee> employees;
 
         public Repository()
         {
-               GetEmployeesFromFile("C:/Users/jens7388/Documents/employees.txt");
+            GetEmployeesFromFile(path);
         }
         public List<Employee> GetAll()
         {
             return employees;
         }
-        public void Add(Employee employee)
+        public static void Add(Employee employee)
         {
             employees.Add(employee);
         }
@@ -67,8 +68,14 @@ namespace ListViewExercise
             }
             else
             {
-                MessageBox.Show("ADVARSEL! Kunne ikke forbinde til textfilen, tjek din sti!");
-                Environment.Exit(0);
+                MessageBox.Show("Denne fil findes ikke, opretter ny fil..");
+                using(StreamWriter writer = File.AppendText(path))
+                {
+                        writer.WriteLine("Richard,Head,Boss,4200000,06-09-1969");
+                        writer.WriteLine("Ivan,Jerkov,Kok,69000,20-04-2004");
+                        writer.WriteLine("Phuc,Yu,Chauffoer,66000,06-06-2006");                      
+                }
+                GetEmployeesFromFile(path);
                 return false;
             }
         }

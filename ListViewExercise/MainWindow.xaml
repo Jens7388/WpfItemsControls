@@ -32,6 +32,7 @@
                   Grid.Column="1"
                   BorderThickness="1"
                   Grid.ColumnSpan="3"
+                  SelectionChanged="SelectionChanged"
                   Grid.RowSpan="3"
                   ItemsSource="{Binding Employees}"
                   SelectedItem="{Binding SelectedEmployee}">
@@ -111,9 +112,11 @@
                                 Width="110"
                                 HorizontalAlignment="Left"
                                 Click="buttonSaveAsNewEmployee_Click" />
-                        <Button Content="Gem redigering"
+                        <Button x:Name="buttonSaveEdit"
+                                Content="Gem redigering"
                                 FontSize="12"
-                                Width="90" />
+                                Width="90"
+                                Click="buttonSaveEdit_Click" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Width="159"
